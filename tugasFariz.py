@@ -1,9 +1,8 @@
 # Deklarasi Fixed-Size Array kapasitas 10
-# Di Python, Saya simulasikan fixed size dengan mengisi None sebanyak 10 kali
 capacity = 10
-nim_array = [None] * capacity
-nama_array = [None] * capacity
-jk_array = [None] * capacity
+
+# Saya menginisialisasi array 2D yang benar di Python agar setiap baris independen pak
+data_array = [[None] * 3 for _ in range(capacity)]
 
 count = 0
 
@@ -31,9 +30,7 @@ while True:
     print("9. Exit")
 
     try:
-        # Input menu
         choice_input = input("Pilih menu: ")
-        # Validasi apakah input angka atau bukan
         if not choice_input.isdigit():
              print(">> Input salah! Harap masukkan angka.")
              continue
@@ -50,45 +47,42 @@ while True:
         if count >= capacity:
             print(">> GAGAL: Array Penuh!")
         else:
-            # INPUT NIM (LOOP SAMPAI BENAR)
+            # INPUT NIM
             nim = ""
             while True:
                 nim = input("Masukkan NIM: ")
-
-                # Cek apakah angka
                 if not nim.isdigit():
                     print(">> ERROR: NIM harus berupa ANGKA saja! Coba lagi.")
                     continue
 
                 is_duplicate = False
                 for i in range(count):
-                    if nim_array[i] == nim:
+                    # Cek Kolom 0 (NIM)
+                    if data_array[i][0] == nim:
                         is_duplicate = True
                         break
 
                 if is_duplicate:
                     print(f">> ERROR: NIM {nim} sudah ada! Coba NIM lain.")
                 else:
-                    break # Lolos Validasi
+                    break
 
-            # INPUT NAMA (LOOP SAMPAI BENAR)
+            # INPUT NAMA
             nama = ""
             while True:
                 nama = input("Masukkan Nama: ")
-
                 is_nama_duplicate = False
                 for i in range(count):
-                    # .lower() agar tidak case sensitive
-                    if nama_array[i].lower() == nama.lower():
+                    # Cek Kolom 1 (Nama)
+                    if data_array[i][1].lower() == nama.lower():
                         is_nama_duplicate = True
                         break
-
                 if is_nama_duplicate:
                     print(f">> ERROR: Nama \"{nama}\" sudah ada! Coba nama lain.")
                 else:
                     break
 
-            # INPUT JK (LOOP SAMPAI BENAR)
+            # INPUT JK
             jk = ""
             while True:
                 input_jk = input("Masukkan Jenis Kelamin (L/P): ").upper()
@@ -99,15 +93,16 @@ while True:
                     print(">> ERROR: Input salah! Ketik 'L' atau 'P'.")
 
             # PROSES INSERT DEPAN (Geser ke Kanan)
-            # range(start, stop, step) -> mundur dari count ke 1
             for i in range(count, 0, -1):
-                nim_array[i] = nim_array[i-1]
-                nama_array[i] = nama_array[i-1]
-                jk_array[i] = jk_array[i-1]
+                # Geser per kolom
+                data_array[i][0] = data_array[i-1][0] # NIM
+                data_array[i][1] = data_array[i-1][1] # Nama
+                data_array[i][2] = data_array[i-1][2] # JK
 
-            nim_array[0] = nim
-            nama_array[0] = nama
-            jk_array[0] = jk
+            # Isi Index 0
+            data_array[0][0] = nim
+            data_array[0][1] = nama
+            data_array[0][2] = jk
             count += 1
             print(">> SUKSES: Data disimpan di awal.")
 
@@ -116,7 +111,7 @@ while True:
         if count >= capacity:
             print(">> GAGAL: Array Penuh!")
         else:
-            # INPUT POSISI (LOOP SAMPAI BENAR)
+            # INPUT POSISI
             pos = 0
             while True:
                 try:
@@ -143,7 +138,7 @@ while True:
 
                 is_duplicate = False
                 for i in range(count):
-                    if nim_array[i] == nim:
+                    if data_array[i][0] == nim:
                         is_duplicate = True
                         break
                 if is_duplicate:
@@ -157,7 +152,7 @@ while True:
                 nama = input("Masukkan Nama: ")
                 is_nama_duplicate = False
                 for i in range(count):
-                    if nama_array[i].lower() == nama.lower():
+                    if data_array[i][1].lower() == nama.lower():
                         is_nama_duplicate = True
                         break
                 if is_nama_duplicate:
@@ -175,16 +170,16 @@ while True:
                 else:
                     print(">> ERROR: Input salah! Ketik 'L' atau 'P'.")
 
-            # PROSES INSERT POSISI (Geser ke Kanan)
+            # PROSES INSERT POSISI
             index = pos - 1
             for i in range(count, index, -1):
-                nim_array[i] = nim_array[i-1]
-                nama_array[i] = nama_array[i-1]
-                jk_array[i] = jk_array[i-1]
+                data_array[i][0] = data_array[i-1][0]
+                data_array[i][1] = data_array[i-1][1]
+                data_array[i][2] = data_array[i-1][2]
 
-            nim_array[index] = nim
-            nama_array[index] = nama
-            jk_array[index] = jk
+            data_array[index][0] = nim
+            data_array[index][1] = nama
+            data_array[index][2] = jk
             count += 1
             print(f">> SUKSES: Data disisipkan di posisi {pos}")
 
@@ -202,7 +197,7 @@ while True:
                     continue
                 is_duplicate = False
                 for i in range(count):
-                    if nim_array[i] == nim:
+                    if data_array[i][0] == nim:
                         is_duplicate = True
                         break
                 if is_duplicate:
@@ -216,7 +211,7 @@ while True:
                 nama = input("Masukkan Nama: ")
                 is_nama_duplicate = False
                 for i in range(count):
-                    if nama_array[i].lower() == nama.lower():
+                    if data_array[i][1].lower() == nama.lower():
                         is_nama_duplicate = True
                         break
                 if is_nama_duplicate:
@@ -235,9 +230,9 @@ while True:
                     print(">> ERROR: Input salah! Ketik 'L' atau 'P'.")
 
             # PROSES INSERT BELAKANG
-            nim_array[count] = nim
-            nama_array[count] = nama
-            jk_array[count] = jk
+            data_array[count][0] = nim
+            data_array[count][1] = nama
+            data_array[count][2] = jk
             count += 1
             print(">> SUKSES: Data ditambahkan di akhir.")
 
@@ -248,14 +243,14 @@ while True:
         else:
             # Geser ke Kiri (Maju)
             for i in range(0, count - 1):
-                nim_array[i] = nim_array[i+1]
-                nama_array[i] = nama_array[i+1]
-                jk_array[i] = jk_array[i+1]
+                data_array[i][0] = data_array[i+1][0]
+                data_array[i][1] = data_array[i+1][1]
+                data_array[i][2] = data_array[i+1][2]
 
-            # Hapus data terakhir (bersihkan sampah)
-            nim_array[count - 1] = None
-            nama_array[count - 1] = None
-            jk_array[count - 1] = None
+            # Hapus data terakhir
+            data_array[count - 1][0] = None
+            data_array[count - 1][1] = None
+            data_array[count - 1][2] = None
             count -= 1
             print(">> SUKSES: Data pertama dihapus.")
 
@@ -264,6 +259,7 @@ while True:
         if count == 0:
             print(">> GAGAL: Array Kosong!")
         else:
+            # INPUT POSISI
             pos = 0
             while True:
                 try:
@@ -283,13 +279,13 @@ while True:
             index = pos - 1
             # Geser ke Kiri
             for i in range(index, count - 1):
-                nim_array[i] = nim_array[i+1]
-                nama_array[i] = nama_array[i+1]
-                jk_array[i] = jk_array[i+1]
+                data_array[i][0] = data_array[i+1][0]
+                data_array[i][1] = data_array[i+1][1]
+                data_array[i][2] = data_array[i+1][2]
 
-            nim_array[count - 1] = None
-            nama_array[count - 1] = None
-            jk_array[count - 1] = None
+            data_array[count - 1][0] = None
+            data_array[count - 1][1] = None
+            data_array[count - 1][2] = None
             count -= 1
             print(f">> SUKSES: Data posisi {pos} dihapus.")
 
@@ -298,9 +294,9 @@ while True:
         if count == 0:
             print(">> GAGAL: Array Kosong!")
         else:
-            nim_array[count - 1] = None
-            nama_array[count - 1] = None
-            jk_array[count - 1] = None
+            data_array[count - 1][0] = None
+            data_array[count - 1][1] = None
+            data_array[count - 1][2] = None
             count -= 1
             print(">> SUKSES: Data terakhir dihapus.")
 
@@ -312,22 +308,22 @@ while True:
             target_nim = input("Masukkan NIM yang akan dihapus: ")
             found_index = -1
 
-            # Linear Search
+            # Linear Search di Kolom 0
             for i in range(count):
-                if nim_array[i] == target_nim:
+                if data_array[i][0] == target_nim:
                     found_index = i
                     break
 
             if found_index != -1:
                 # Geser Kiri
                 for i in range(found_index, count - 1):
-                    nim_array[i] = nim_array[i+1]
-                    nama_array[i] = nama_array[i+1]
-                    jk_array[i] = jk_array[i+1]
+                    data_array[i][0] = data_array[i+1][0]
+                    data_array[i][1] = data_array[i+1][1]
+                    data_array[i][2] = data_array[i+1][2]
 
-                nim_array[count - 1] = None
-                nama_array[count - 1] = None
-                jk_array[count - 1] = None
+                data_array[count - 1][0] = None
+                data_array[count - 1][1] = None
+                data_array[count - 1][2] = None
                 count -= 1
                 print(f">> SUKSES: NIM {target_nim} dihapus.")
             else:
@@ -337,17 +333,15 @@ while True:
     elif choice == 8:
         print("\nData Mahasiswa:")
         print("+-----+--------------+---------------------------+-----+")
-        # Menggunakan f-string formatting untuk merapikan tabel
-        # :<3 artinya rata kiri, lebar 3
-        # :<12 artinya rata kiri, lebar 12, dst
         print(f"| {'No':<3} | {'NIM':<12} | {'Nama':<25} | {'L/P':<3} |")
         print("+-----+--------------+---------------------------+-----+")
 
         if count == 0:
-            print(f"| {'DATA KOSONG':^50} |") # ^50 artinya rata tengah lebar 50
+            print(f"| {'DATA KOSONG':^50} |")
         else:
             for i in range(count):
-                print(f"| {i+1:<3} | {nim_array[i]:<12} | {nama_array[i]:<25} | {jk_array[i]:<3} |")
+                # Akses data 2D: [i][0], [i][1], [i][2]
+                print(f"| {i+1:<3} | {data_array[i][0]:<12} | {data_array[i][1]:<25} | {data_array[i][2]:<3} |")
 
         print("+-----+--------------+---------------------------+-----+")
 
