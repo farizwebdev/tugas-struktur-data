@@ -1,9 +1,7 @@
 public class tugasFariz {
     public static void main(String[] args) {
-        // Deklarasi Fixed-Size Array kapasitas 10
-        String[] nimArray = new String[10];
-        String[] namaArray = new String[10];
-        String[] jkArray = new String[10];
+
+        String[][] dataArray = new String[10][3];
 
         int count = 0;
         int capacity = 10;
@@ -52,7 +50,7 @@ public class tugasFariz {
                 if (count >= capacity) {
                     System.out.println(">> GAGAL: Array Penuh!");
                 } else {
-                    // INPUT NIM (LOOP SAMPAI BENAR)
+                    // INPUT NIM
                     String nim = "";
                     while (true) {
                         System.out.print("Masukkan NIM: ");
@@ -65,7 +63,8 @@ public class tugasFariz {
 
                         boolean isDuplicate = false;
                         for (int i = 0; i < count; i++) {
-                            if (nimArray[i].equals(nim)) {
+                            // Cek Kolom 0 (NIM)
+                            if (dataArray[i][0].equals(nim)) {
                                 isDuplicate = true;
                                 break;
                             }
@@ -74,11 +73,11 @@ public class tugasFariz {
                         if (isDuplicate) {
                             System.out.println(">> ERROR: NIM " + nim + " sudah ada! Coba NIM lain.");
                         } else {
-                            break; // Lolos Validasi
+                            break;
                         }
                     }
 
-                    // INPUT NAMA (LOOP SAMPAI BENAR)
+                    // INPUT NAMA
                     String nama = "";
                     while (true) {
                         System.out.print("Masukkan Nama: ");
@@ -86,7 +85,8 @@ public class tugasFariz {
 
                         boolean isNamaDuplicate = false;
                         for (int i = 0; i < count; i++) {
-                            if (namaArray[i].equalsIgnoreCase(nama)) {
+                            // Cek Kolom 1 (Nama)
+                            if (dataArray[i][1].equalsIgnoreCase(nama)) {
                                 isNamaDuplicate = true;
                                 break;
                             }
@@ -99,7 +99,7 @@ public class tugasFariz {
                         }
                     }
 
-                    // INPUT JK (LOOP SAMPAI BENAR)
+                    // INPUT JK
                     String jk = "";
                     while (true) {
                         System.out.print("Masukkan Jenis Kelamin (L/P): ");
@@ -114,13 +114,13 @@ public class tugasFariz {
 
                     // PROSES INSERT DEPAN
                     for (int i = count; i > 0; i--) {
-                        nimArray[i] = nimArray[i - 1];
-                        namaArray[i] = namaArray[i - 1];
-                        jkArray[i] = jkArray[i - 1];
+                        dataArray[i][0] = dataArray[i - 1][0]; // NIM
+                        dataArray[i][1] = dataArray[i - 1][1]; // Nama
+                        dataArray[i][2] = dataArray[i - 1][2]; // JK
                     }
-                    nimArray[0] = nim;
-                    namaArray[0] = nama;
-                    jkArray[0] = jk;
+                    dataArray[0][0] = nim;
+                    dataArray[0][1] = nama;
+                    dataArray[0][2] = jk;
                     count++;
                     System.out.println(">> SUKSES: Data disimpan di awal.");
                 }
@@ -131,28 +131,26 @@ public class tugasFariz {
                 if (count >= capacity) {
                     System.out.println(">> GAGAL: Array Penuh!");
                 } else {
-                    // INPUT POSISI (LOOP SAMPAI BENAR)
-                    // Ini yang kamu minta diperbaiki
+                    // INPUT POSISI
                     int pos = 0;
                     while (true) {
                         System.out.print("Masukkan Posisi Insert (1 - " + (count + 1) + "): ");
                         if (sc.hasNextInt()) {
                             pos = sc.nextInt();
-                            sc.nextLine(); // clear buffer
+                            sc.nextLine();
 
-                            // Validasi Range
                             if (pos >= 1 && pos <= count + 1) {
-                                break; // Posisi valid, keluar loop
+                                break;
                             } else {
                                 System.out.println(">> ERROR: Posisi tidak valid! Hanya boleh 1 s/d " + (count + 1));
                             }
                         } else {
                             System.out.println(">> ERROR: Harap masukkan angka!");
-                            sc.next(); // buang input sampah
+                            sc.next();
                         }
                     }
 
-                    // INPUT NIM (LOOP SAMPAI BENAR)
+                    // INPUT NIM
                     String nim = "";
                     while (true) {
                         System.out.print("Masukkan NIM: ");
@@ -165,7 +163,7 @@ public class tugasFariz {
 
                         boolean isDuplicate = false;
                         for (int i = 0; i < count; i++) {
-                            if (nimArray[i].equals(nim)) {
+                            if (dataArray[i][0].equals(nim)) {
                                 isDuplicate = true;
                                 break;
                             }
@@ -177,7 +175,7 @@ public class tugasFariz {
                         }
                     }
 
-                    // INPUT NAMA (LOOP SAMPAI BENAR)
+                    // INPUT NAMA
                     String nama = "";
                     while (true) {
                         System.out.print("Masukkan Nama: ");
@@ -185,7 +183,7 @@ public class tugasFariz {
 
                         boolean isNamaDuplicate = false;
                         for (int i = 0; i < count; i++) {
-                            if (namaArray[i].equalsIgnoreCase(nama)) {
+                            if (dataArray[i][1].equalsIgnoreCase(nama)) {
                                 isNamaDuplicate = true;
                                 break;
                             }
@@ -197,7 +195,7 @@ public class tugasFariz {
                         }
                     }
 
-                    // INPUT JK (LOOP SAMPAI BENAR)
+                    // INPUT JK
                     String jk = "";
                     while (true) {
                         System.out.print("Masukkan Jenis Kelamin (L/P): ");
@@ -213,13 +211,13 @@ public class tugasFariz {
                     // PROSES INSERT POSISI
                     int index = pos - 1;
                     for (int i = count; i > index; i--) {
-                        nimArray[i] = nimArray[i - 1];
-                        namaArray[i] = namaArray[i - 1];
-                        jkArray[i] = jkArray[i - 1];
+                        dataArray[i][0] = dataArray[i - 1][0];
+                        dataArray[i][1] = dataArray[i - 1][1];
+                        dataArray[i][2] = dataArray[i - 1][2];
                     }
-                    nimArray[index] = nim;
-                    namaArray[index] = nama;
-                    jkArray[index] = jk;
+                    dataArray[index][0] = nim;
+                    dataArray[index][1] = nama;
+                    dataArray[index][2] = jk;
                     count++;
                     System.out.println(">> SUKSES: Data disisipkan di posisi " + pos);
                 }
@@ -230,7 +228,7 @@ public class tugasFariz {
                 if (count >= capacity) {
                     System.out.println(">> GAGAL: Array Penuh!");
                 } else {
-                    // INPUT NIM (LOOP)
+                    // INPUT NIM
                     String nim = "";
                     while (true) {
                         System.out.print("Masukkan NIM: ");
@@ -243,7 +241,7 @@ public class tugasFariz {
 
                         boolean isDuplicate = false;
                         for (int i = 0; i < count; i++) {
-                            if (nimArray[i].equals(nim)) {
+                            if (dataArray[i][0].equals(nim)) {
                                 isDuplicate = true;
                                 break;
                             }
@@ -255,7 +253,7 @@ public class tugasFariz {
                         }
                     }
 
-                    // INPUT NAMA (LOOP)
+                    // INPUT NAMA
                     String nama = "";
                     while (true) {
                         System.out.print("Masukkan Nama: ");
@@ -263,7 +261,7 @@ public class tugasFariz {
 
                         boolean isNamaDuplicate = false;
                         for (int i = 0; i < count; i++) {
-                            if (namaArray[i].equalsIgnoreCase(nama)) {
+                            if (dataArray[i][1].equalsIgnoreCase(nama)) {
                                 isNamaDuplicate = true;
                                 break;
                             }
@@ -275,7 +273,7 @@ public class tugasFariz {
                         }
                     }
 
-                    // INPUT JK (LOOP)
+                    // INPUT JK
                     String jk = "";
                     while (true) {
                         System.out.print("Masukkan Jenis Kelamin (L/P): ");
@@ -289,9 +287,9 @@ public class tugasFariz {
                     }
 
                     // PROSES INSERT BELAKANG
-                    nimArray[count] = nim;
-                    namaArray[count] = nama;
-                    jkArray[count] = jk;
+                    dataArray[count][0] = nim;
+                    dataArray[count][1] = nama;
+                    dataArray[count][2] = jk;
                     count++;
                     System.out.println(">> SUKSES: Data ditambahkan di akhir.");
                 }
@@ -303,13 +301,13 @@ public class tugasFariz {
                     System.out.println(">> GAGAL: Array Kosong!");
                 } else {
                     for (int i = 0; i < count - 1; i++) {
-                        nimArray[i] = nimArray[i + 1];
-                        namaArray[i] = namaArray[i + 1];
-                        jkArray[i] = jkArray[i + 1];
+                        dataArray[i][0] = dataArray[i + 1][0];
+                        dataArray[i][1] = dataArray[i + 1][1];
+                        dataArray[i][2] = dataArray[i + 1][2];
                     }
-                    nimArray[count - 1] = null;
-                    namaArray[count - 1] = null;
-                    jkArray[count - 1] = null;
+                    dataArray[count - 1][0] = null;
+                    dataArray[count - 1][1] = null;
+                    dataArray[count - 1][2] = null;
                     count--;
                     System.out.println(">> SUKSES: Data pertama dihapus.");
                 }
@@ -320,7 +318,7 @@ public class tugasFariz {
                 if (count == 0) {
                     System.out.println(">> GAGAL: Array Kosong!");
                 } else {
-                    // INPUT POSISI HAPUS (LOOP SAMPAI BENAR)
+                    // INPUT POSISI HAPUS
                     int pos = 0;
                     while (true) {
                         System.out.print("Masukkan Posisi Hapus (1 - " + count + "): ");
@@ -329,7 +327,7 @@ public class tugasFariz {
                             sc.nextLine();
 
                             if (pos >= 1 && pos <= count) {
-                                break; // Posisi valid
+                                break;
                             } else {
                                 System.out.println(">> ERROR: Posisi tidak ditemukan! Pilih 1 s/d " + count);
                             }
@@ -342,13 +340,13 @@ public class tugasFariz {
                     // PROSES HAPUS
                     int index = pos - 1;
                     for (int i = index; i < count - 1; i++) {
-                        nimArray[i] = nimArray[i + 1];
-                        namaArray[i] = namaArray[i + 1];
-                        jkArray[i] = jkArray[i + 1];
+                        dataArray[i][0] = dataArray[i + 1][0];
+                        dataArray[i][1] = dataArray[i + 1][1];
+                        dataArray[i][2] = dataArray[i + 1][2];
                     }
-                    nimArray[count - 1] = null;
-                    namaArray[count - 1] = null;
-                    jkArray[count - 1] = null;
+                    dataArray[count - 1][0] = null;
+                    dataArray[count - 1][1] = null;
+                    dataArray[count - 1][2] = null;
                     count--;
                     System.out.println(">> SUKSES: Data posisi " + pos + " dihapus.");
                 }
@@ -359,9 +357,9 @@ public class tugasFariz {
                 if (count == 0) {
                     System.out.println(">> GAGAL: Array Kosong!");
                 } else {
-                    nimArray[count - 1] = null;
-                    namaArray[count - 1] = null;
-                    jkArray[count - 1] = null;
+                    dataArray[count - 1][0] = null;
+                    dataArray[count - 1][1] = null;
+                    dataArray[count - 1][2] = null;
                     count--;
                     System.out.println(">> SUKSES: Data terakhir dihapus.");
                 }
@@ -372,15 +370,13 @@ public class tugasFariz {
                 if (count == 0) {
                     System.out.println(">> GAGAL: Array Kosong!");
                 } else {
-                    // Untuk Menu 7, logikanya beda sedikit.
-                    // Jika NIM tidak ketemu, lebih baik kembali ke menu (bukan looping),
-                    // karena mungkin user salah lihat NIM atau berubah pikiran.
                     System.out.print("Masukkan NIM yang akan dihapus: ");
                     String targetNim = sc.nextLine();
                     int foundIndex = -1;
 
                     for (int i = 0; i < count; i++) {
-                        if (nimArray[i].equals(targetNim)) {
+                        // Cek Kolom 0 (NIM)
+                        if (dataArray[i][0].equals(targetNim)) {
                             foundIndex = i;
                             break;
                         }
@@ -388,13 +384,13 @@ public class tugasFariz {
 
                     if (foundIndex != -1) {
                         for (int i = foundIndex; i < count - 1; i++) {
-                            nimArray[i] = nimArray[i + 1];
-                            namaArray[i] = namaArray[i + 1];
-                            jkArray[i] = jkArray[i + 1];
+                            dataArray[i][0] = dataArray[i + 1][0];
+                            dataArray[i][1] = dataArray[i + 1][1];
+                            dataArray[i][2] = dataArray[i + 1][2];
                         }
-                        nimArray[count - 1] = null;
-                        namaArray[count - 1] = null;
-                        jkArray[count - 1] = null;
+                        dataArray[count - 1][0] = null;
+                        dataArray[count - 1][1] = null;
+                        dataArray[count - 1][2] = null;
                         count--;
                         System.out.println(">> SUKSES: NIM " + targetNim + " dihapus.");
                     } else {
@@ -414,8 +410,9 @@ public class tugasFariz {
                     System.out.printf("| %-50s |%n", "                  DATA KOSONG");
                 } else {
                     for (int i = 0; i < count; i++) {
+                        // Akses array 2D: [Baris][0], [Baris][1], [Baris][2]
                         System.out.printf("| %-3d | %-12s | %-25s | %-3s |%n",
-                                (i + 1), nimArray[i], namaArray[i], jkArray[i]);
+                                (i + 1), dataArray[i][0], dataArray[i][1], dataArray[i][2]);
                     }
                 }
                 System.out.println("+-----+--------------+---------------------------+-----+");
